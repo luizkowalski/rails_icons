@@ -29,12 +29,8 @@ module RailsIcons
           apply_transformations_to(destination)
         end
 
-        # Add excluded variants to the list of paths to remove
-        excluded_variants.each do |variant|
-          original_variants << variant.to_s if Dir.exist?(File.join(@temp_directory, variant.to_s))
-        end
-
         remove_files_and_folders(original_variants)
+        remove_previously_downloaded_variants(excluded_variants)
 
         say "[Rails Icons] Icon variants processed successfully"
       end
@@ -61,6 +57,12 @@ module RailsIcons
       def remove_files_and_folders(paths)
         paths.each do |path|
           FileUtils.rm_rf(File.join(@temp_directory, path))
+        end
+      end
+
+      def remove_previously_downloaded_variants(variants)
+        variants.each do |variant|
+          FileUtils.rm_rf(File.join(RailsIcons.configuration.destination_path, @name, variant.to_s))
         end
       end
 

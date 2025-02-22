@@ -18,6 +18,7 @@ module RailsIcons
         <<~RB.indent(2)
           # Override Radix defaults
           # config.libraries.radix.exclude_variants = [] # Radix has no variants, this is provided for backwards compatibility
+          # config.libraries.radix.default.css = "size-6"
 
           # config.libraries.radix.regular.default.css = "size-6"
           # config.libraries.radix.default.stroke_width = "2"
@@ -41,10 +42,6 @@ module RailsIcons
           options.css = "size-4"
           options.data = {}
         end
-      end
-
-      def setup_regular_config(options)
-        options.default = default_options
       end
     end
   end

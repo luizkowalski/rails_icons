@@ -12,8 +12,11 @@ module RailsIcons
 
       def process
         original_variants = Dir.children(@temp_directory)
+        excluded_variants = RailsIcons.configuration.libraries.dig(@name.to_sym)&.exclude_variants || []
 
         @library[:variants].each do |variant_name, variant_source_path|
+          next if excluded_variants.include?(variant_name)
+
           source = File.join(@temp_directory, variant_source_path)
           destination = File.join(@temp_directory, variant_name.to_s)
 
@@ -24,6 +27,11 @@ module RailsIcons
           move_icons(source, destination)
 
           apply_transformations_to(destination)
+        end
+
+        # Add excluded variants to the list of paths to remove
+        excluded_variants.each do |variant|
+          original_variants << variant.to_s if Dir.exist?(File.join(@temp_directory, variant.to_s))
         end
 
         remove_files_and_folders(original_variants)

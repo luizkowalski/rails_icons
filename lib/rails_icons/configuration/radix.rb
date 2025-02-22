@@ -8,6 +8,7 @@ module RailsIcons
       def config
         ActiveSupport::OrderedOptions.new.tap do |options|
           options.default_variant = nil
+          options.exclude_variants = []
 
           options.default = default_options
         end
@@ -16,7 +17,9 @@ module RailsIcons
       def initializer_config
         <<~RB.indent(2)
           # Override Radix defaults
-          # config.libraries.radix.default.css = "size-6"
+          # config.libraries.radix.exclude_variants = [] # Exclude specific variants
+
+          # config.libraries.radix.regular.default.css = "size-6"
           # config.libraries.radix.default.stroke_width = "2"
           # config.libraries.radix.default.data = {}
         RB
@@ -38,6 +41,10 @@ module RailsIcons
           options.css = "size-4"
           options.data = {}
         end
+      end
+
+      def setup_regular_config(options)
+        options.default = default_options
       end
     end
   end

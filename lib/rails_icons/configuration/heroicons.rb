@@ -20,7 +20,7 @@ module RailsIcons
       def initializer_config
         <<~RB.indent(2)
           # Override Heroicon defaults
-          # config.libraries.heroicons.exclude_variants = [] # Exclude specific variants
+          # config.libraries.heroicons.exclude_variants = [:mini, :micro] # Exclude specific variants
 
           # config.libraries.heroicons.outline.default.css = "size-6"
           # config.libraries.heroicons.outline.default.stroke_width = "1.5"

@@ -54,7 +54,7 @@ icon "check"
 # Use another variant
 icon "check", variant: "solid"
 
-# Set library explictly
+# Set library explicitly
 icon "check", library: "heroicons"
 
 # Add CSS
